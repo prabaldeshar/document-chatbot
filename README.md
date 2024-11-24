@@ -1,4 +1,4 @@
-# Django Docker Project
+# Document Chatbot Backend
 
 A Django-based REST API that allows users to upload documents (PDF, DOCX, TXT) and ask questions about their content using OpenAI's GPT models.
 
