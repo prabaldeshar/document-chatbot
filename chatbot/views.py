@@ -17,6 +17,8 @@ from langchain.memory import ChatMessageHistory
 import os
 from dotenv import load_dotenv
 from chatbot.rag_service import RAGService
+from langchain_community.document_loaders import PyPDFLoader, Docx2txtLoader
+from chatbot.data_loader import get_data_loader
 
 load_dotenv()
 
@@ -75,7 +77,10 @@ def upload_document(request):
     
     file_obj = request.FILES['file']
     try:
-        content = file_obj.read().decode('utf-8')
+        file_extension = file_obj.name.split('.')[-1].lower()
+        loader = get_data_loader(file_extension)
+        content = loader.load(file_obj)
+
         document = Document.objects.create(
             file=file_obj,
             name=file_obj.name,
