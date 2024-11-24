@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: django_web
+    restart: always
+    volumes:
+      - pgdata:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - .env
+    networks:
+      - django-network
+
+volumes:
+  pgdata:
+    driver: local
+  
+networks:
+  django-network:
+    driver: bridge
