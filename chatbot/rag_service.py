@@ -34,7 +34,7 @@ class RAGService:
     def get_retriever(self, docs):
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
         splits = text_splitter.split_documents(docs)
-        vectorstore = Chroma.from_documents(documents=splits, embedding=OpenAIEmbeddings())
+        vectorstore = Chroma.from_documents(documents=splits, embedding=OpenAIEmbeddings(), persist_directory="rag_db")
         return vectorstore.as_retriever()
     
     def get_rag_chain(self, retriever):
